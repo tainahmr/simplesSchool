@@ -50,3 +50,13 @@ def buscar_endereco_aluno(dados: AlunoRequest):
         'endereco': aluno['endereco'],
         'cep': aluno['cep'],
     }
+    
+@app.get("/buscar_aluno")
+def buscar_aluno_get(email: EmailStr):
+    aluno = alunos_db.get(email)
+    if not aluno:
+        raise HTTPException(status_code=404, detail="Aluno não encontrado")
+    return {
+        'nome_completo': aluno['nome'],
+        'validade_assinatura': aluno['validade assinatura'],
+    }
